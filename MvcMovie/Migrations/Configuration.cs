@@ -10,7 +10,7 @@ namespace MvcMovie.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(MvcMovie.Models.MovieDBContext context)
@@ -52,6 +52,57 @@ namespace MvcMovie.Migrations
                    Price = 3.99M
                }
            );
+
+
+            context.Widgets.AddOrUpdate(i => i.Name, 
+                new Widget
+                {
+                    Name = "Widget1",
+                    BasePrice = 10.00M,
+                    DiscountIndicator = true
+                },
+                new Widget
+                {
+                    Name = "Widget2",
+                    BasePrice = 100.00M,
+                    DiscountIndicator = false
+                },
+                new Widget
+                {
+                    Name = "Widget3",
+                    BasePrice = 200.00M,
+                    DiscountIndicator = true
+                }
+               );
+
+
+            context.States.AddOrUpdate(i => i.Name,
+                new State
+                {
+                    Name = "FL",
+                    Discount = 0.0
+                },
+                new State
+                {
+                    Name = "TX",
+                    Discount = 0.0
+                },
+                new State
+                {
+                    Name = "IN",
+                    Discount = 12.0
+                },
+                new State
+                {
+                    Name = "NY",
+                    Discount = 14.0
+                },
+                new State
+                {
+                    Name = "TN",
+                    Discount = 8.5
+                }
+               );
 
         }
 

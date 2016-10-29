@@ -33,5 +33,7 @@ public class Movie
     public class MovieDBContext : DbContext
     {
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<Widget> Widgets { get; set; }
+        public DbSet<State> States { get; set; }
     }
 }
