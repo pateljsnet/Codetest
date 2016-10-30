@@ -7,25 +7,25 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MvcMovie.Models;
+using MvcMovie.Service;
+using Autofac;
 
 namespace MvcMovie.Controllers
 {
     public class HomeController : Controller
     {
-        private MovieDBContext db = new MovieDBContext();
 
         // GET: /Home/
         public ActionResult Index()
         {
+            var builder = new ContainerBuilder();                                      // Autofac DI Container
+            builder.RegisterType<CalculatorService>().As<ICalculator>();               // Register Dependency so that it can be resolve
+            var container = builder.Build();
 
-            var StateList = from d in db.States
-                           orderby d.Name
-                           select d.Name;
-
+            var StateList = container.Resolve<ICalculator>().GetStates();              // Resolve DI of CalculatorService
             ViewBag.StateList = new SelectList(StateList);
 
-            var WidgetList = from m in db.Widgets
-                             select  m.Name;
+            var WidgetList = container.Resolve<ICalculator>().GetWidgets();
             ViewBag.WidgetList = new SelectList(WidgetList);
 
             return View();
@@ -36,37 +36,20 @@ namespace MvcMovie.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Index(string widgetlist, string statelist)
         {
+            var builder = new ContainerBuilder();
+            builder.RegisterType<CalculatorService>().As<ICalculator>();
+            var container = builder.Build();
 
-            var StateList = from d in db.States
-                            orderby d.Name
-                            select d.Name;
-
+            var StateList = container.Resolve<ICalculator>().GetStates();
             ViewBag.StateList = new SelectList(StateList);
 
-            var WidgetList = from m in db.Widgets
-                             select m.Name;
+            var WidgetList = container.Resolve<ICalculator>().GetWidgets();
             ViewBag.WidgetList = new SelectList(WidgetList);
 
+            double total = container.Resolve<ICalculator>().Calculate(widgetlist, statelist);
 
-            var BasePrice = (from m in db.Widgets
-                             where m.Name == widgetlist
-                             select m.BasePrice).FirstOrDefault();
-
-            ViewBag.BasePrice = BasePrice.ToString();
-            string bp = BasePrice.ToString();
-
-            var taxPercentage = (from d in db.States
-                            where d.Name == statelist
-                            select d.TaxPercentage).FirstOrDefault(); ;
-            string tp = taxPercentage.ToString();
-
-            var discountIndicator = (from m in db.Widgets
-                             where m.Name == widgetlist && m.DiscountIndicator == true
-                             select 0.10).FirstOrDefault(); 
-            string di = discountIndicator.ToString();
-
-            double total = Convert.ToDouble(bp)  + (Convert.ToDouble(bp)*Convert.ToDouble(tp)) - (Convert.ToDouble(bp) * Convert.ToDouble(di));
             ViewBag.TotalPrice = total.ToString();
+
             return View();
         }
 
