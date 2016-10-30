@@ -19,4 +19,10 @@ namespace MvcMovie.Models
         public double TaxPercentage { get; set; }
 
     }
+
+    public class MovieDBContext : DbContext
+    {
+        public DbSet<Widget> Widgets { get; set; }
+        public DbSet<State> States { get; set; }
+    }
 }
