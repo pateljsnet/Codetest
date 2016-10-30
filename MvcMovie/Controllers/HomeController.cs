@@ -31,7 +31,7 @@ namespace MvcMovie.Controllers
             return View();
         }
 
-        // GET: /Home/
+        // POST: /Home/
         [HttpPost]
         public ActionResult Index(string widgetlist, string statelist)
         {
