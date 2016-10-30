@@ -33,6 +33,7 @@ namespace MvcMovie.Controllers
 
         // POST: /Home/
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Index(string widgetlist, string statelist)
         {
 
