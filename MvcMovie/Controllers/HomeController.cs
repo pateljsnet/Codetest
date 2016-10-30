@@ -28,11 +28,6 @@ namespace MvcMovie.Controllers
                              select  m.Name;
             ViewBag.WidgetList = new SelectList(WidgetList);
 
-            //var BasePrice = (from m in db.Widgets
-            //                 select m.BasePrice).FirstOrDefault();
-                            
-            //ViewBag.BasePrice = BasePrice.ToString();
-
             return View();
         }
 
