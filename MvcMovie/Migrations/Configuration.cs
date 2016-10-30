@@ -80,27 +80,27 @@ namespace MvcMovie.Migrations
                 new State
                 {
                     Name = "FL",
-                    Discount = 0.0
+                    TaxPercentage = 0.0
                 },
                 new State
                 {
                     Name = "TX",
-                    Discount = 0.0
+                    TaxPercentage = 0.0
                 },
                 new State
                 {
                     Name = "IN",
-                    Discount = 12.0
+                    TaxPercentage = 5.0
                 },
                 new State
                 {
                     Name = "NY",
-                    Discount = 14.0
+                    TaxPercentage = 5.0
                 },
                 new State
                 {
                     Name = "TN",
-                    Discount = 8.5
+                    TaxPercentage = 5.0
                 }
                );
 

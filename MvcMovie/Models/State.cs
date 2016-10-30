@@ -16,7 +16,7 @@ namespace MvcMovie.Models
         public string Name { get; set; }
 
         [Required]
-        public double Discount { get; set; }
+        public double TaxPercentage { get; set; }
 
     }
 }
